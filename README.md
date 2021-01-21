@@ -1,6 +1,18 @@
 # product-sales-manager
 API para gestionar la venta de productos de seguros
 
+## Modelo de datos:
+https://github.com/mokusan/product-sales-manager/blob/master/dataModel.png
+
+## Documentacion de los rest services
+http://localhost:8080/swagger-ui.html#/
+
+## UI de Base de datos en memoria
+http://localhost:8080/h2-console/
+JCDB URL: jdbc:h2:mem:test
+User: sa
+Password: (dejar en blanco) (Credenciales se puede modificar en el application.properties)
+
 ## Despliegue:
   1- Iniciar docker
 

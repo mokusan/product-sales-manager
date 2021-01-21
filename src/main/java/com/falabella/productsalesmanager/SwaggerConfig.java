@@ -22,7 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 	public static final Contact DEFAULT_CONTACT = new Contact("JCRY", "https://github.com/mokusan",
             "juancrojasy@gmail.com");
-    public static final ApiInfo DEFAULT_API_INFO = new ApiInfo("Warehouse Api Documentation", "Warehouse Api Documentation", "1.0",
+    public static final ApiInfo DEFAULT_API_INFO = new ApiInfo("Falabella product-sales manager Api Documentation", "Falabella product-sales manager Api Documentation", "1.0",
             "PREMIUM", DEFAULT_CONTACT, "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0",
             new ArrayList<VendorExtension>());
     

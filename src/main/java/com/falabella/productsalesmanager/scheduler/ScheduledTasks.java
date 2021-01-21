@@ -2,6 +2,7 @@ package com.falabella.productsalesmanager.scheduler;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.falabella.productsalesmanager.models.Product;
 import com.falabella.productsalesmanager.models.Simulation;
 import com.falabella.productsalesmanager.service.SimulationService;
+import com.falabella.productsalesmanager.service.impl.ProductServiceImpl;
 import com.falabella.productsalesmanager.service.impl.SimulationServiceImpl;
 
 @Component
@@ -21,16 +24,15 @@ public class ScheduledTasks {
 	@Autowired
 	private SimulationServiceImpl simulationService;
 	
+	@Autowired
+	private ProductServiceImpl productService;
+	
 	private static final Logger LOG = LoggerFactory.getLogger(ScheduledTasks.class);
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	 
-//	private SimulationRepository simulationRepository;
-//	 
-//	@Autowired
-//	public ScheduledTasks(SimulationRepository simulationRepository) {
-//		this.simulationRepository = simulationRepository;
-//	}
-	 
+
+	/**
+	 * dailyTasks executes validations and updates prices and sellIn
+	 */
 	@Scheduled(cron = "${cron.expression}")
 	public void dailyTasks() {  
 		LOG.info("Actualización periódica de Sell-in y Price de Productos :: Hora de ejecución- {}",
@@ -38,13 +40,23 @@ public class ScheduledTasks {
 		 
 		Date today = new Date();
 		 
-		// Retrieve latest entry to obtain dayNumberCounter
-		Simulation simLatestEntry = simulationService.findLatestEntry();
+		/**
+		 * Create list of simulations to update
+		 */		
+		List<Product> productsList = productService.listAll();		
+		List<Simulation> simulationListToUpdate = new ArrayList<>();
 		
-		List<Simulation> simulationListfromPreviousDay = simulationService.findByDayNumber(simLatestEntry.getDayNumberCounter()); 
+		for ( Product p : productsList ) {
+			List<Simulation> simulationListByProductId = simulationService.findByProductId(p.getProductId());
+			Simulation s = simulationListByProductId.get(simulationListByProductId.size()-1);
+			simulationListToUpdate.add(s);
+		}
+		
+		// 
 		 
-		for ( Simulation s : simulationListfromPreviousDay ) {
-			simulationService.saveNewEntry(s);
+		for ( Simulation s : simulationListToUpdate ) {
+//			simulationService.saveNewEntry(s);
+			System.out.println(s.toString());
 		}
 	}
 }

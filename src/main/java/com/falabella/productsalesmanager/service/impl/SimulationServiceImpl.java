@@ -54,7 +54,7 @@ public class SimulationServiceImpl implements SimulationService {
 		}
 		
 		Simulation sim = new Simulation(obj.getProduct(), sellIn, price > 100 ? 100 : (price < 0 ? 0 : price), dayNumberCounter, date);
-		System.out.println(sim.toString());
+//		System.out.println(sim.toString());
 		return repo.save(sim);
 	}
 
@@ -85,5 +85,16 @@ public class SimulationServiceImpl implements SimulationService {
 	
 	public Simulation findLatestEntry() {
 		return repo.findTopByOrderBySimulationIdDesc();
+	}
+	
+	public Simulation createEntry(Simulation obj) {
+		Date today = new Date();
+		obj.setDayNumberCounter(0);
+		obj.setDate(today);
+		return repo.save(obj);
+	}
+	
+	public List<Simulation> findByProductId(Integer id) {
+		return repo.findByProduct_ProductId(id);
 	}
 }

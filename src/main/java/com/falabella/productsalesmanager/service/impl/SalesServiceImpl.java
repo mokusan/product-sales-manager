@@ -1,5 +1,6 @@
 package com.falabella.productsalesmanager.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class SalesServiceImpl implements SalesService {
 	
 	@Override
 	public Sales saveNewEntry(Sales obj) {
+		Date today = new Date();
+		obj.setDate(today);
 		return repo.save(obj);
 	}
 

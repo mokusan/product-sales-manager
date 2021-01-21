@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "sales")
 public class Sales {
@@ -18,9 +20,11 @@ public class Sales {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer salesId;
 	
+	@ApiModelProperty
 	@ManyToOne
     private Simulation simulation;
 	
+	@ApiModelProperty(required = false, hidden = true)
 	@Column(name = "date", nullable = false)
 	private Date date;
 

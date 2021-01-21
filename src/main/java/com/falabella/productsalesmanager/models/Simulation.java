@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import javax.validation.constraints.Min;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "simulation")
 public class Simulation {
@@ -22,22 +24,28 @@ public class Simulation {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer simulationId;
 
+	@ApiModelProperty
 	@ManyToOne
     private Product product;
 	
+	@ApiModelProperty
 	@Column(name = "sell_in", nullable = false)
 	private Integer sellIn;
 	
+	@ApiModelProperty(notes = "Precio máximo = 180")
 //	@Min(0)
 	@Column(name = "price", nullable = false)
 	private Integer price;
 	
+	@ApiModelProperty(required = false, hidden = true)
 	@Column(name = "day_number_counter", nullable = false)
 	private Integer dayNumberCounter;
 	
+	@ApiModelProperty(required = false, hidden = true)
 	@Column(name = "date", nullable = false)
 	private Date date;
 	
+	@ApiModelProperty(required = false, hidden = true)
 	@OneToMany(mappedBy = "simulation")
 	private List<Sales> sales;
 
@@ -51,6 +59,14 @@ public class Simulation {
 		this.price = price;
 		this.dayNumberCounter = dayNumberCounter;
 		this.date = date;
+	}
+	
+	public Integer getSimulationId() {
+		return simulationId;
+	}
+
+	public void setSimulationId(Integer simulationId) {
+		this.simulationId = simulationId;
 	}
 
 	public Product getProduct() {
@@ -91,14 +107,6 @@ public class Simulation {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public List<Sales> getSales() {
-		return sales;
-	}
-
-	public void setSales(List<Sales> sales) {
-		this.sales = sales;
 	}
 
 	@Override

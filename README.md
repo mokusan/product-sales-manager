@@ -9,9 +9,9 @@ http://localhost:8080/swagger-ui.html#/
 
 ## UI de Base de datos en memoria
 http://localhost:8080/h2-console/
-JCDB URL: jdbc:h2:mem:test
-User: sa
-Password: (dejar en blanco) (Credenciales se puede modificar en el application.properties)
+- JCDB URL: jdbc:h2:mem:test
+- User: sa
+- Password: (dejar en blanco) (Credenciales se puede modificar en el application.properties)
 
 ## Despliegue:
   1- Iniciar docker

@@ -40,15 +40,15 @@ public class ProductSalesManagerApplication {
 			
 			List<Product> productsList = productRepository.findAll();
 			
-			Date date = new Date();
+			Date today = new Date();
 			
 			// Create Simulations for newly created Products
 			for ( Product prod : productsList) {
 				Random rand = new Random();
 				if (prod.getName().contains("Mega cobertura")) {
-					simulationRepository.save(new Simulation(prod, rand.nextInt(20) + 1, 180, 0, date));
+					simulationRepository.save(new Simulation(prod, rand.nextInt(20) + 1, 180, 0, today));
 				} else {
-					simulationRepository.save(new Simulation(prod, rand.nextInt(20) + 1, rand.nextInt(100), 0, date));
+					simulationRepository.save(new Simulation(prod, rand.nextInt(20) + 1, rand.nextInt(100) + 1, 0, today));
 				}
 			} // end for productList
 			List<Simulation> simulationList = simulationRepository.findAll();

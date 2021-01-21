@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import javax.validation.constraints.Min;
+
 @Entity
 @Table(name = "simulation")
 public class Simulation {
@@ -26,11 +28,12 @@ public class Simulation {
 	@Column(name = "sell_in", nullable = false)
 	private Integer sellIn;
 	
+//	@Min(0)
 	@Column(name = "price", nullable = false)
 	private Integer price;
 	
-	@Column(name = "day_number", nullable = false)
-	private Integer dayNumber;
+	@Column(name = "day_number_counter", nullable = false)
+	private Integer dayNumberCounter;
 	
 	@Column(name = "date", nullable = false)
 	private Date date;
@@ -41,12 +44,12 @@ public class Simulation {
 	public Simulation() {
 	}
 
-	public Simulation(Product product, Integer sellIn, Integer price, Integer dayNumber,
+	public Simulation(Product product, Integer sellIn, Integer price, Integer dayNumberCounter,
 			Date date) {
 		this.product = product;
 		this.sellIn = sellIn;
 		this.price = price;
-		this.dayNumber = dayNumber;
+		this.dayNumberCounter = dayNumberCounter;
 		this.date = date;
 	}
 
@@ -74,12 +77,12 @@ public class Simulation {
 		this.price = price;
 	}
 
-	public Integer getDayNumber() {
-		return dayNumber;
+	public Integer getDayNumberCounter() {
+		return dayNumberCounter;
 	}
 
-	public void setDayNumber(Integer dayNumber) {
-		this.dayNumber = dayNumber;
+	public void setDayNumberCounter(Integer dayNumber) {
+		this.dayNumberCounter = dayNumber;
 	}
 
 	public Date getDate() {
@@ -101,6 +104,6 @@ public class Simulation {
 	@Override
 	public String toString() {
 		return "Simulation [simulationId=" + simulationId + ", product=" + product + ", sellIn=" + sellIn + ", price="
-				+ price + ", dayNumber=" + dayNumber + ", date=" + date + "]";
+				+ price + ", dayNumberCounter=" + dayNumberCounter + ", date=" + date + "]";
 	}
 }

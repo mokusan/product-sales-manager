@@ -1,5 +1,6 @@
 package com.falabella.productsalesmanager.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.falabella.productsalesmanager.models.Sales;
+import com.falabella.productsalesmanager.pojos.EvaluateProducts;
+import com.falabella.productsalesmanager.pojos.ProductInfo;
+import com.falabella.productsalesmanager.service.impl.ProductServiceImpl;
 import com.falabella.productsalesmanager.service.impl.SalesServiceImpl;
+import com.falabella.productsalesmanager.service.impl.SimulationServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -27,6 +32,12 @@ public class SalesController {
 
 	@Autowired
 	private SalesServiceImpl salesService;
+	
+	@Autowired
+	private SimulationServiceImpl simulationService;
+	
+	@Autowired
+	private ProductServiceImpl productService;
 	
 	@ApiOperation(value = "Obtener todos los Sales",
 		    notes = "No requiere parametros de entrada",
@@ -103,5 +114,11 @@ public class SalesController {
 	public ResponseEntity<Object> delete(@PathVariable("id") Integer id) {
 		Boolean sal = salesService.delete(id);
 		return new ResponseEntity<Object>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/evaluateProducts/{days}")
+	public ResponseEntity<List<EvaluateProducts>> evaluateProducts(@PathVariable("days") Integer days) {
+		List<EvaluateProducts> evaluateProductsList= salesService.getEvaluateProducts(days);
+		return new ResponseEntity<List<EvaluateProducts>>(evaluateProductsList, HttpStatus.OK);
 	}
 }

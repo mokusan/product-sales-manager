@@ -41,6 +41,7 @@ public class ProductSalesManagerApplication {
 			productRepository.save(new Product("Mega cobertura"));
 			productRepository.save(new Product("Full cobertura Super duper"));
 			productRepository.save(new Product("Super avance"));
+			productRepository.save(new Product("Cobertura"));
 			
 			List<Product> productsList = productRepository.findAll();
 			
@@ -55,15 +56,17 @@ public class ProductSalesManagerApplication {
 					simulationRepository.save(new Simulation(prod, rand.nextInt(20) + 1, rand.nextInt(100) + 1, 0, today));
 				}
 			} // end for productList
-			simulationRepository.save(new Simulation(productsList.get(1), 24 + 1, 180, 0, today));
-			simulationRepository.save(new Simulation(productsList.get(1), 45 + 1, 34, 0, today));
-			simulationRepository.save(new Simulation(productsList.get(1), 34 + 1, 56, 0, today));
+			
+/////////////////////////// BORRAR //////////////////////////////////////////////////////////////////////
+//			simulationRepository.save(new Simulation(productsList.get(1), 24 + 1, 180, 0, today));
+//			simulationRepository.save(new Simulation(productsList.get(1), 45 + 1, 34, 0, today));
+//			simulationRepository.save(new Simulation(productsList.get(1), 34 + 1, 56, 0, today));
 //			List<Simulation> simulationList = simulationRepository.findAll();
 //			
 //			for (Simulation s : simulationList) {
 //				System.out.println(s.toString());
 //			}
-				
+/////////////////////////// BORRAR //////////////////////////////////////////////////////////////////////				
 			
 		}; // end lambda
 	} // end command line runner

@@ -41,22 +41,30 @@ public class ScheduledTasks {
 		Date today = new Date();
 		 
 		/**
-		 * Create list of simulations to update
+		 * Create list of simulations to update:
+		 * Fetch day before simulations and update its prices and sellIns
 		 */		
+			
 		List<Product> productsList = productService.listAll();		
 		List<Simulation> simulationListToUpdate = new ArrayList<>();
 		
 		for ( Product p : productsList ) {
 			List<Simulation> simulationListByProductId = simulationService.findByProductId(p.getProductId());
-			Simulation s = simulationListByProductId.get(simulationListByProductId.size()-1);
-			simulationListToUpdate.add(s);
+			Simulation s = new Simulation();
+			
+			try {
+				s = simulationListByProductId.get(simulationListByProductId.size()-1);
+				simulationListToUpdate.add(s);
+			} catch (Exception e) {
+//				e.printStackTrace();
+				LOG.info("Favor crear un Simulation para el producto con ID: {} y NAME: {} ", p.getProductId(), p.getName());
+			}
+			
 		}
-		
-		// 
 		 
 		for ( Simulation s : simulationListToUpdate ) {
-//			simulationService.saveNewEntry(s);
-			System.out.println(s.toString());
+			simulationService.saveNewEntry(s);
+//			System.out.println(s.toString());
 		}
 	}
 }

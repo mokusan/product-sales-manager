@@ -44,6 +44,22 @@ public class SimulationController {
 		return new ResponseEntity<List<Simulation>>(lista, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Obtener Simulations disponibles para la venta",
+		    notes = "No requiere parametros de entrada",
+		    response = Simulation.class,
+		    responseContainer = "List")
+	 @ApiResponses(value = {
+			 @ApiResponse(code = 200, message = "OK, petición correcta"),
+			 @ApiResponse(code = 400, message = "Bad request, datos enviados de forma incorrecta"),
+			 @ApiResponse(code = 404, message = "Not found, no encontrado"),
+			 @ApiResponse(code = 405, message = "No se encontraron registros en la BD")
+	})
+	@GetMapping("/available-for-sale")
+	public ResponseEntity<List<Simulation>> listOnlyAvailable() {
+		List<Simulation> lista = simulationService.listOnlyAvailable();
+		return new ResponseEntity<List<Simulation>>(lista, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "Buscar Simulation por ID",
 		    notes = "Requiere especificar ID en la URL",
 		    response = Simulation.class,

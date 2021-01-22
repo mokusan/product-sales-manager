@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import com.falabella.productsalesmanager.models.Product;
 import com.falabella.productsalesmanager.models.Simulation;
-import com.falabella.productsalesmanager.service.SimulationService;
 import com.falabella.productsalesmanager.service.impl.ProductServiceImpl;
 import com.falabella.productsalesmanager.service.impl.SimulationServiceImpl;
 
@@ -64,7 +63,6 @@ public class ScheduledTasks {
 		 
 		for ( Simulation s : simulationListToUpdate ) {
 			simulationService.saveNewEntry(s);
-//			System.out.println(s.toString());
 		}
 	}
 }

@@ -1,8 +1,6 @@
 package com.falabella.productsalesmanager.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.falabella.productsalesmanager.models.Sales;
 import com.falabella.productsalesmanager.pojos.EvaluateProducts;
-import com.falabella.productsalesmanager.pojos.ProductInfo;
+import com.falabella.productsalesmanager.pojos.SalesWithValidation;
 import com.falabella.productsalesmanager.service.impl.ProductServiceImpl;
 import com.falabella.productsalesmanager.service.impl.SalesServiceImpl;
 import com.falabella.productsalesmanager.service.impl.SimulationServiceImpl;
@@ -32,12 +30,6 @@ public class SalesController {
 
 	@Autowired
 	private SalesServiceImpl salesService;
-	
-	@Autowired
-	private SimulationServiceImpl simulationService;
-	
-	@Autowired
-	private ProductServiceImpl productService;
 	
 	@ApiOperation(value = "Obtener todos los Sales",
 		    notes = "No requiere parametros de entrada",
@@ -77,13 +69,17 @@ public class SalesController {
 		    responseContainer = "Sales")
 	 @ApiResponses(value = {
 			 @ApiResponse(code = 200, message = "OK, petición correcta"),
-			 @ApiResponse(code = 400, message = "Bad request, datos enviados de forma incorrecta"),
+			 @ApiResponse(code = 400, message = "Bad request, Producto no disponible para la venta"),
 			 @ApiResponse(code = 405, message = "No se encontraron registros en la BD")
 	 })
 	@PostMapping
 	public ResponseEntity<Sales> registerNew(@RequestBody Sales sales) {
-		Sales sal = salesService.saveNewEntry(sales);
-		return new ResponseEntity<Sales>(sal, HttpStatus.OK);
+		SalesWithValidation swv = salesService.validateAndSaveNewEntry(sales);
+		if (swv.getIsAvailable() == true) {
+			return new ResponseEntity<Sales>(swv.getSales(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Sales>(swv.getSales(), HttpStatus.BAD_REQUEST);
+		}		
 	}
 	
 	@ApiOperation(value = "Modificar Sales pre-existente",

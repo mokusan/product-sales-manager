@@ -2,15 +2,19 @@ package com.falabella.productsalesmanager.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import com.falabella.productsalesmanager.models.Sales;
 import com.falabella.productsalesmanager.models.Simulation;
 import com.falabella.productsalesmanager.pojos.EvaluateProducts;
 import com.falabella.productsalesmanager.pojos.ProductInfo;
+import com.falabella.productsalesmanager.pojos.SalesWithValidation;
 import com.falabella.productsalesmanager.repository.SalesRepository;
 import com.falabella.productsalesmanager.service.SalesService;
 
@@ -76,6 +80,22 @@ public class SalesServiceImpl implements SalesService {
 			evaluateProductsList.add(evaluateProduct);
 		}
 		return evaluateProductsList;
+	}
+	
+	public SalesWithValidation validateAndSaveNewEntry(Sales obj) {
+		SalesWithValidation salesWithValidation = new SalesWithValidation();
+		Date today = new Date();
+		
+		obj.setDate(today);
+		salesWithValidation.setSales(obj);
+		// check if product/simulation is available
+		if (obj.getSimulation().getPrice() <= 0) {
+			salesWithValidation.setIsAvailable(false);
+		} else {
+			salesWithValidation.setIsAvailable(true);
+			repo.save(obj);
+		}	
+		return salesWithValidation;
 	}
 	
 }

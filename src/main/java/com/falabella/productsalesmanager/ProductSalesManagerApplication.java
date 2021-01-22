@@ -55,18 +55,7 @@ public class ProductSalesManagerApplication {
 				} else {
 					simulationRepository.save(new Simulation(prod, rand.nextInt(20) + 1, rand.nextInt(100) + 1, 0, today));
 				}
-			} // end for productList
-			
-/////////////////////////// BORRAR //////////////////////////////////////////////////////////////////////
-//			simulationRepository.save(new Simulation(productsList.get(1), 24 + 1, 180, 0, today));
-//			simulationRepository.save(new Simulation(productsList.get(1), 45 + 1, 34, 0, today));
-//			simulationRepository.save(new Simulation(productsList.get(1), 34 + 1, 56, 0, today));
-//			List<Simulation> simulationList = simulationRepository.findAll();
-//			
-//			for (Simulation s : simulationList) {
-//				System.out.println(s.toString());
-//			}
-/////////////////////////// BORRAR //////////////////////////////////////////////////////////////////////				
+			} // end for productList	
 			
 		}; // end lambda
 	} // end command line runner

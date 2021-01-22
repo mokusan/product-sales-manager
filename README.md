@@ -21,7 +21,7 @@ http://localhost:8080/h2-console/
 
   2- cd al directorio de proyecto
   
-  3- Modificar el campo "cron.expression" en el archivo application.properties en caso de que se desee modificar el tiempo de ejecución del proceso que modifica los precios. Actualmente está configurado para ejecutarse cada 24h a las 3:35 am. Para fines de prueba se puede modificar la expresión cron para que el proceso se ejecute cada 30 segundo (cron.expression=*/30 * * * * *) 
+  3- Modificar el campo "cron.expression" en el archivo application.properties en caso de que se desee modificar el tiempo de ejecución del proceso que modifica los precios. Actualmente está configurado para ejecutarse cada 24h a las 5:35 am. Para fines de prueba se puede modificar la expresión cron para que el proceso se ejecute cada 30 segundo (cron.expression=*/30 * * * * *) 
 
   4- Ejecutar docker build para crear la imagen:
   
